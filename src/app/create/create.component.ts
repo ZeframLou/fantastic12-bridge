@@ -18,7 +18,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
-    this.FACTORY_ADDRESS = "0x0";
+    this.FACTORY_ADDRESS = "0x216298AD8dDF2BE64CaE3ef567e232e319803C8f";
   }
 
   ngOnInit() {
