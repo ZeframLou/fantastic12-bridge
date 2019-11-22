@@ -124,7 +124,7 @@ export class Web3Enabled {
 
   async estimateGas(func, val, _onError) {
     return Math.floor((await func.estimateGas({
-      from: this.state.accountAddress,
+      from: this.state.address,
       value: val
     }).catch(_onError)) * 1.2);
   };
@@ -133,7 +133,7 @@ export class Web3Enabled {
     var gasLimit = await this.estimateGas(func, 0, _onError);
     if (!isNaN(gasLimit)) {
       return func.send({
-        from: this.state.accountAddress,
+        from: this.state.address,
         gas: gasLimit,
       }).on("transactionHash", (hash) => {
         _onTxHash(hash);
@@ -156,7 +156,7 @@ export class Web3Enabled {
     var gasLimit = await this.estimateGas(func, val, _onError);
     if (!isNaN(gasLimit)) {
       return func.send({
-        from: this.state.accountAddress,
+        from: this.state.address,
         gas: gasLimit,
         value: val
       }).on("transactionHash", (hash) => {
@@ -178,7 +178,7 @@ export class Web3Enabled {
 
   async sendTxWithToken(func, token, to, amount, gasLimit, _onTxHash, _onReceipt, _onError) {
     let state = this.state;
-    let allowance = new BigNumber(await token.methods.allowance(state.accountAddress, to).call());
+    let allowance = new BigNumber(await token.methods.allowance(state.address, to).call());
     if (allowance.gt(0)) {
       if (allowance.gte(amount)) {
         return this.sendTx(func, _onTxHash, _onReceipt, _onError);
@@ -187,7 +187,7 @@ export class Web3Enabled {
       return this.sendTx(token.methods.approve(to, 0), () => {
         this.sendTx(token.methods.approve(to, amount), () => {
           func.send({
-            from: this.state.accountAddress,
+            from: this.state.address,
             gas: gasLimit,
           }).on("transactionHash", (hash) => {
             _onTxHash(hash);
@@ -208,7 +208,7 @@ export class Web3Enabled {
     } else {
       return this.sendTx(token.methods.approve(to, amount), () => {
         func.send({
-          from: this.state.accountAddress,
+          from: this.state.address,
           gas: gasLimit,
         }).on("transactionHash", (hash) => {
           _onTxHash(hash);
