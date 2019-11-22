@@ -79,7 +79,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<p>create works!</p>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("");
             /***/ 
         }),
         /***/ "./node_modules/regenerator-runtime/runtime.js": 
