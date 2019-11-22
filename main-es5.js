@@ -1179,7 +1179,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     var _this = _super.call(this, web3) || this;
                     _this.route = route;
                     _this.summoner = _this.route.snapshot.paramMap.get("summoner");
-                    _this.FACTORY_ADDRESS = "0x216298AD8dDF2BE64CaE3ef567e232e319803C8f";
+                    _this.FACTORY_ADDRESS = "0x3aB8424653C21c918D878FED06FC65C47aC00083";
                     return _this;
                 }
                 CreateComponent.prototype.ngOnInit = function () {
@@ -1383,7 +1383,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                 case 0:
                                     _b = (_a = Math).floor;
                                     return [4 /*yield*/, func.estimateGas({
-                                            from: this.state.accountAddress,
+                                            from: this.state.address,
                                             value: val
                                         }).catch(_onError)];
                                 case 1: return [2 /*return*/, _b.apply(_a, [(_c.sent()) * 1.2])];
@@ -1403,7 +1403,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     gasLimit = _a.sent();
                                     if (!isNaN(gasLimit)) {
                                         return [2 /*return*/, func.send({
-                                                from: this.state.accountAddress,
+                                                from: this.state.address,
                                                 gas: gasLimit,
                                             }).on("transactionHash", function (hash) {
                                                 _onTxHash(hash);
@@ -1445,7 +1445,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     gasLimit = _a.sent();
                                     if (!isNaN(gasLimit)) {
                                         return [2 /*return*/, func.send({
-                                                from: this.state.accountAddress,
+                                                from: this.state.address,
                                                 gas: gasLimit,
                                                 value: val
                                             }).on("transactionHash", function (hash) {
@@ -1486,7 +1486,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                 case 0:
                                     state = this.state;
                                     _b = (_a = bignumber_js__WEBPACK_IMPORTED_MODULE_4___default.a).bind;
-                                    return [4 /*yield*/, token.methods.allowance(state.accountAddress, to).call()];
+                                    return [4 /*yield*/, token.methods.allowance(state.address, to).call()];
                                 case 1:
                                     allowance = new (_b.apply(_a, [void 0, _c.sent()]))();
                                     if (allowance.gt(0)) {
@@ -1496,7 +1496,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                         return [2 /*return*/, this.sendTx(token.methods.approve(to, 0), function () {
                                                 _this.sendTx(token.methods.approve(to, amount), function () {
                                                     func.send({
-                                                        from: _this.state.accountAddress,
+                                                        from: _this.state.address,
                                                         gas: gasLimit,
                                                     }).on("transactionHash", function (hash) {
                                                         _onTxHash(hash);
@@ -1526,7 +1526,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     else {
                                         return [2 /*return*/, this.sendTx(token.methods.approve(to, amount), function () {
                                                 func.send({
-                                                    from: _this.state.accountAddress,
+                                                    from: _this.state.address,
                                                     gas: gasLimit,
                                                 }).on("transactionHash", function (hash) {
                                                     _onTxHash(hash);

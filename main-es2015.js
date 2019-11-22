@@ -1212,7 +1212,7 @@ let CreateComponent = class CreateComponent extends _web3Enabled__WEBPACK_IMPORT
         super(web3);
         this.route = route;
         this.summoner = this.route.snapshot.paramMap.get("summoner");
-        this.FACTORY_ADDRESS = "0x216298AD8dDF2BE64CaE3ef567e232e319803C8f";
+        this.FACTORY_ADDRESS = "0x3aB8424653C21c918D878FED06FC65C47aC00083";
     }
     ngOnInit() {
         this.connect(() => {
@@ -1411,7 +1411,7 @@ class Web3Enabled {
     estimateGas(func, val, _onError) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             return Math.floor((yield func.estimateGas({
-                from: this.state.accountAddress,
+                from: this.state.address,
                 value: val
             }).catch(_onError)) * 1.2);
         });
@@ -1422,7 +1422,7 @@ class Web3Enabled {
             var gasLimit = yield this.estimateGas(func, 0, _onError);
             if (!isNaN(gasLimit)) {
                 return func.send({
-                    from: this.state.accountAddress,
+                    from: this.state.address,
                     gas: gasLimit,
                 }).on("transactionHash", (hash) => {
                     _onTxHash(hash);
@@ -1447,7 +1447,7 @@ class Web3Enabled {
             var gasLimit = yield this.estimateGas(func, val, _onError);
             if (!isNaN(gasLimit)) {
                 return func.send({
-                    from: this.state.accountAddress,
+                    from: this.state.address,
                     gas: gasLimit,
                     value: val
                 }).on("transactionHash", (hash) => {
@@ -1471,7 +1471,7 @@ class Web3Enabled {
     sendTxWithToken(func, token, to, amount, gasLimit, _onTxHash, _onReceipt, _onError) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             let state = this.state;
-            let allowance = new bignumber_js__WEBPACK_IMPORTED_MODULE_4___default.a(yield token.methods.allowance(state.accountAddress, to).call());
+            let allowance = new bignumber_js__WEBPACK_IMPORTED_MODULE_4___default.a(yield token.methods.allowance(state.address, to).call());
             if (allowance.gt(0)) {
                 if (allowance.gte(amount)) {
                     return this.sendTx(func, _onTxHash, _onReceipt, _onError);
@@ -1479,7 +1479,7 @@ class Web3Enabled {
                 return this.sendTx(token.methods.approve(to, 0), () => {
                     this.sendTx(token.methods.approve(to, amount), () => {
                         func.send({
-                            from: this.state.accountAddress,
+                            from: this.state.address,
                             gas: gasLimit,
                         }).on("transactionHash", (hash) => {
                             _onTxHash(hash);
@@ -1501,7 +1501,7 @@ class Web3Enabled {
             else {
                 return this.sendTx(token.methods.approve(to, amount), () => {
                     func.send({
-                        from: this.state.accountAddress,
+                        from: this.state.address,
                         gas: gasLimit,
                     }).on("transactionHash", (hash) => {
                         _onTxHash(hash);
