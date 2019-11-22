@@ -1348,7 +1348,7 @@ class Web3Enabled {
                         networkId: 1
                     }
                 ]);
-                wallets.push(genericMobileWalletConfig);
+                wallets.unshift(genericMobileWalletConfig);
                 const walletChecks = [
                     { name: 'connect' },
                     { name: 'network', networkId: 1 },

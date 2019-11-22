@@ -1310,7 +1310,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                         ])];
                                 case 1:
                                     wallets = _a.sent();
-                                    wallets.push(genericMobileWalletConfig);
+                                    wallets.unshift(genericMobileWalletConfig);
                                     walletChecks = [
                                         { name: 'connect' },
                                         { name: 'network', networkId: 1 },
