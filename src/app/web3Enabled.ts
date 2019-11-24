@@ -58,7 +58,7 @@ export class Web3Enabled {
         }
       ]);
 
-      wallets.push(genericMobileWalletConfig);
+      wallets.unshift(genericMobileWalletConfig);
 
       const walletChecks = [
         { name: 'connect' },
