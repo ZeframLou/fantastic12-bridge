@@ -31,9 +31,10 @@ export class CreateComponent extends Web3Enabled implements OnInit {
         // Call createSquad()
         this.sendTx(factory.methods.createSquad(this.summoner), console.log, console.log, console.log);
       },
-      () => {
+      (e) => {
         // Wallet not connected
         // TODO: notify the user
+        console.log(JSON.stringify(e));
       }
     );
   }

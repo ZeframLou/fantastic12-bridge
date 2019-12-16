@@ -41,8 +41,9 @@ export class ApproveComponent extends Web3Enabled implements OnInit {
           }
         });
       },
-      () => {
+      (e) => {
         // error with web3 connection
+        console.log(JSON.stringify(e));
       }
     );
   }
