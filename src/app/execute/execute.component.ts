@@ -20,10 +20,15 @@ export class ExecuteComponent extends Web3Enabled implements OnInit {
       () => {
         this.route.queryParamMap.subscribe(async params => {
           const orderObj = {...params.keys, ...params};
-          if (orderObj['params'].tx) {
-            const tx = JSON.parse(orderObj['params'].tx);
-            
-            this.web3.eth.sendTransaction(tx);
+          if (orderObj['params'].squad && orderObj['params'].data) {
+            const squad = orderObj['params'].squad;
+            const data = orderObj['params'].data;
+
+            this.web3.eth.sendTransaction({
+              from: this.state.address,
+              to: squad,
+              data: data
+            });
           }
         });
       },
