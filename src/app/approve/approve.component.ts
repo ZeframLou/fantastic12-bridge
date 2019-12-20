@@ -12,7 +12,7 @@ import { WEB3 } from '../web3';
 export class ApproveComponent extends Web3Enabled implements OnInit {
 
   salt: number;
-  sig: String;
+  sig: string;
 
   constructor(@Inject(WEB3) web3: Web3, private route: ActivatedRoute) {
     super(web3);
@@ -37,7 +37,7 @@ export class ApproveComponent extends Web3Enabled implements OnInit {
             const hash = await squad.methods.naiveMessageHash(funcSig, funcParams, this.salt).call();
     
             // Sign hash
-            this.sig = await this.web3.eth.sign(hash, this.state.address);            
+            this.sig = await this.web3.eth.personal.sign(hash, this.state.address, '');
           }
         });
       },

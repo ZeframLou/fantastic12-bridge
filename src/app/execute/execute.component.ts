@@ -20,16 +20,15 @@ export class ExecuteComponent extends Web3Enabled implements OnInit {
       () => {
         this.route.queryParamMap.subscribe(async params => {
           const orderObj = {...params.keys, ...params};
-          if (orderObj['params'].squad && orderObj['params'].func && orderObj['params'].args) {
-            const squadAddr = orderObj['params'].squad;
-            const func = orderObj['params'].func;
-            const args = JSON.parse(orderObj['params'].args);
+          if (orderObj['params'].squad && orderObj['params'].data) {
+            const squad = orderObj['params'].squad;
+            const data = orderObj['params'].data;
 
-            // Initialize squad contract
-            const abi = require('../../assets/abis/Fantastic12.json');
-            const squad = new this.web3.eth.Contract(abi, squadAddr);
-
-            this.sendTx(squad.methods[func].apply(null, args), console.log, console.log, console.log);
+            this.web3.eth.sendTransaction({
+              from: this.state.address,
+              to: squad,
+              data: data
+            });
           }
         });
       },
