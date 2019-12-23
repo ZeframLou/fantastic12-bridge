@@ -13,12 +13,14 @@ export class CreateComponent extends Web3Enabled implements OnInit {
   summoner: string;
 
   FACTORY_ADDRESS: string;
+  DEFAULT_WITHDRAW_LIMIT: string;
 
   constructor(@Inject(WEB3) web3: Web3, private route: ActivatedRoute) {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
     this.FACTORY_ADDRESS = "0xfcC2eC7377e62090A3F19d6C895AC077b10EF95d";
+    this.DEFAULT_WITHDRAW_LIMIT = `${1000 * 1e18}`;
   }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
         const factory = new this.web3.eth.Contract(abi, this.FACTORY_ADDRESS);
 
         // Call createSquad()
-        this.sendTx(factory.methods.createSquad(this.summoner), console.log, console.log, console.log);
+        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT), console.log, console.log, console.log);
       },
       (e) => {
         // Wallet not connected
