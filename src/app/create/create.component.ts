@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Web3Enabled } from '../web3Enabled';
 import Web3 from 'web3';
 import { WEB3 } from '../web3';
+import BigNumber from 'bignumber.js';
 
 @Component({
   selector: 'app-create',
@@ -13,14 +14,14 @@ export class CreateComponent extends Web3Enabled implements OnInit {
   summoner: string;
 
   FACTORY_ADDRESS: string;
-  DEFAULT_WITHDRAW_LIMIT: string;
+  DEFAULT_WITHDRAW_LIMIT: BigNumber;
 
   constructor(@Inject(WEB3) web3: Web3, private route: ActivatedRoute) {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
     this.FACTORY_ADDRESS = "0xfcC2eC7377e62090A3F19d6C895AC077b10EF95d";
-    this.DEFAULT_WITHDRAW_LIMIT = `${1000 * 1e18}`;
+    this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(`${1000 * 1e18}`);
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
         const factory = new this.web3.eth.Contract(abi, this.FACTORY_ADDRESS);
 
         // Call createSquad()
-        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT), console.log, console.log, console.log);
+        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT.toFixed()), console.log, console.log, console.log);
       },
       (e) => {
         // Wallet not connected
