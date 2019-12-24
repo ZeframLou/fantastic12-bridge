@@ -117,8 +117,8 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://zeframlou.github.io/fantastic12-bridge/",
-            "repo": "git@github.com:ZeframLou/fantastic12-bridge.git",
+            "baseHref": "https://f12network.github.io/bridge/",
+            "repo": "git@github.com:f12network/bridge.git",
             "branch": "gh-pages"
           }
         }
