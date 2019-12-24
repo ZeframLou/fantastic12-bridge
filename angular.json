@@ -117,7 +117,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://f12network.github.io/bridge/",
+            "baseHref": "https://f12.network/bridge/",
             "repo": "git@github.com:f12network/bridge.git",
             "branch": "gh-pages"
           }
