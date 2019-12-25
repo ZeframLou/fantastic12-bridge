@@ -20,7 +20,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
-    this.FACTORY_ADDRESS = "0xfcC2eC7377e62090A3F19d6C895AC077b10EF95d";
+    this.FACTORY_ADDRESS = "0x8AE1B3088a1ffE52086C0BaEB1E10512cd116ACE";
     this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(`${1000 * 1e18}`);
   }
 
