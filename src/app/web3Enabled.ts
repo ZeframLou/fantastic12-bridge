@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import Onboard, { modules } from 'bnc-onboard';
+import Onboard from 'bnc-onboard';
 import { isNull } from 'util';
 import BigNumber from 'bignumber.js';
 
@@ -7,6 +7,8 @@ export class Web3Enabled {
   blocknativeAPIKey: String;
   infuraKey: String;
   portisAPIKey: String;
+  squarelinkKey: String;
+  fortmaticKey: String;
   assistInstance: any;
   state: any;
   CHECK_RECEIPT_INTERVAL: number; // in milliseconds
@@ -16,6 +18,8 @@ export class Web3Enabled {
     this.blocknativeAPIKey = "259b4054-b410-4878-9b3e-e39e71e220ed";
     this.infuraKey = "7a7dd3472294438eab040845d03c215c";
     this.portisAPIKey = "9debc3e3-b506-4417-9e88-f0a2de9148ca";
+    this.squarelinkKey = "2b586551124b5a78f599";
+    this.fortmaticKey = "pk_live_CD15F1B346962B21";
     this.CHECK_RECEIPT_INTERVAL = 3e3;
   }
 
@@ -40,36 +44,39 @@ export class Web3Enabled {
         }
       };
 
-      const wallets = await modules.select([
-        { name: 'coinbase' },
-        { name: 'trust' },
-        { name: 'metamask' },
-        { name: 'dapper' },
+      const wallets = [
+        { walletName: 'coinbase' },
+        { walletName: 'trust' },
+        { walletName: 'metamask' },
+        { walletName: 'dapper' },
         {
-          name: 'portis',
+          walletName: 'walletConnect',
+          infuraKey: this.infuraKey,
+          networkId: 1
+        },
+        {
+          walletName: 'fortmatic',
+          apiKey: this.fortmaticKey
+        },
+        { walletName: 'squarelink', apiKey: this.squarelinkKey},
+        { walletName: 'authereum', networkId: 1 },
+        {
+          walletName: 'portis',
           apiKey: this.portisAPIKey,
           networkId: 1
         },
-        { name: 'authereum', networkId: 1 },
-        {
-          name: 'walletConnect',
-          infuraKey: this.infuraKey,
-          networkId: 1
-        }
-      ]);
-
-      wallets.unshift(genericMobileWalletConfig);
+      ];
 
       const walletChecks = [
-        { name: 'connect' },
-        { name: 'network', networkId: 1 },
-        { name: 'balance', minimumBalance: '0' }
+        { checkName: 'connect' },
+        { checkName: 'network' },
+        { checkName: 'balance', minimumBalance: '0' }
       ];
 
       let walletSelectConfig = {
         heading: 'Select a Wallet',
         description: 'Please select a wallet to connect to this dapp:',
-        wallets: wallets
+        wallets: [genericMobileWalletConfig, ...wallets]
       };
 
       let bncAssistConfig = {
@@ -82,12 +89,10 @@ export class Web3Enabled {
             }
           }
         },
-        modules: {
-          // default wallets that are included: MetaMask, Dapper, Coinbase, Trust, WalletConnect
-          walletSelect: walletSelectConfig,
-          // default ready steps are: connect, network, balance
-          walletCheck: modules.check(walletChecks)
-        }
+        // default wallets that are included: MetaMask, Dapper, Coinbase, Trust, WalletConnect
+        walletSelect: walletSelectConfig,
+        // default ready steps are: connect, network, balance
+        walletCheck: walletChecks
       };
       this.assistInstance = Onboard(bncAssistConfig);
     }
