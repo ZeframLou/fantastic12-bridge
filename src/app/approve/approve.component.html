@@ -1,4 +1,7 @@
 <div *ngIf="sig">
-    <p>Please copy and paste the following message to the squad channel and send it:</p>
-    <p>!approve {{salt}} {{sig}}</p>
+    <p class="text-center">Please copy and paste the following message to the squad channel and send it:</p>
+    <input class="center" value="!approve {{salt}} {{sig}}" readonly #approveCommand />
+    <button class="btn center" [ngxClipboard]="approveCommand" style="margin-top: 1rem;">
+        Copy
+    </button>
 </div>

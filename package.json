@@ -22,6 +22,7 @@
     "angular-cli-ghpages": "^0.6.0",
     "bignumber.js": "^9.0.0",
     "bnc-onboard": "^1.1.10",
+    "ngx-clipboard": "^12.3.0",
     "rxjs": "~6.5.3",
     "tslib": "^1.9.0",
     "web3": "^1.2.4",
