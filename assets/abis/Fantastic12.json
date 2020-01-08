@@ -148,12 +148,6 @@
         "internalType": "address",
         "name": "quitter",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "fundsWithdrawn",
-        "type": "uint256"
       }
     ],
     "name": "RageQuit",
@@ -218,21 +212,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "BLOCKING_THRESHOLD",
-    "outputs": [
-      {
-        "internalType": "uint8",
-        "name": "",
-        "type": "uint8"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "DAI",
     "outputs": [
       {
@@ -254,6 +233,21 @@
         "internalType": "uint8",
         "name": "",
         "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "VERSION",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "payable": false,
@@ -517,6 +511,21 @@
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "consensusThresholdPercentage",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -633,6 +642,11 @@
       {
         "internalType": "uint256",
         "name": "_withdrawLimit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_consensusThresholdPercentage",
         "type": "uint256"
       }
     ],
@@ -863,7 +877,13 @@
   },
   {
     "constant": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_tokens",
+        "type": "address[]"
+      }
+    ],
     "name": "rageQuit",
     "outputs": [],
     "payable": false,
@@ -990,6 +1010,46 @@
       }
     ],
     "name": "transferDAI",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address payable[]",
+        "name": "_dests",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_tokens",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_signatures",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_salts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "transferTokens",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
