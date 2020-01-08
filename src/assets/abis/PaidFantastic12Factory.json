@@ -91,6 +91,11 @@
         "internalType": "uint256",
         "name": "_withdrawLimit",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_consensusThreshold",
+        "type": "uint256"
       }
     ],
     "name": "createSquad",

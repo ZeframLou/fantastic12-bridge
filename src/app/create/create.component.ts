@@ -20,7 +20,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
-    this.FACTORY_ADDRESS = "0x8AE1B3088a1ffE52086C0BaEB1E10512cd116ACE";
+    this.FACTORY_ADDRESS = "0xBE0ce2fd19aC5788D3Be91378e7fF918cabf148f";
     this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(`${1000 * 1e18}`);
   }
 
@@ -28,7 +28,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     this.connect(
       () => {
         // Initialize factory contract
-        const abi = require('../../assets/abis/Fantastic12Factory.json');
+        const abi = require('../../assets/abis/PaidFantastic12Factory.json');
         const factory = new this.web3.eth.Contract(abi, this.FACTORY_ADDRESS);
 
         // Call createSquad()
