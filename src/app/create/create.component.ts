@@ -15,6 +15,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
 
   FACTORY_ADDRESS: string;
   DEFAULT_WITHDRAW_LIMIT: BigNumber;
+  DEFAULT_CONSENSUS_THRESHOLD: BigNumber;
 
   constructor(@Inject(WEB3) web3: Web3, private route: ActivatedRoute) {
     super(web3);
@@ -22,6 +23,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     this.summoner = this.route.snapshot.paramMap.get("summoner");
     this.FACTORY_ADDRESS = "0xBE0ce2fd19aC5788D3Be91378e7fF918cabf148f";
     this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(`${1000 * 1e18}`);
+    this.DEFAULT_CONSENSUS_THRESHOLD = new BigNumber(0.75 * 1e18);
   }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
         const factory = new this.web3.eth.Contract(abi, this.FACTORY_ADDRESS);
 
         // Call createSquad()
-        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT.toFixed()), console.log, console.log, console.log);
+        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT.toFixed(), this.DEFAULT_CONSENSUS_THRESHOLD.toFixed()), console.log, console.log, console.log);
       },
       (e) => {
         // Wallet not connected
