@@ -12,6 +12,8 @@ import BigNumber from 'bignumber.js';
 })
 export class CreateComponent extends Web3Enabled implements OnInit {
   summoner: string;
+  txSubmitted: boolean;
+  txHash: string;
 
   FACTORY_ADDRESS: string;
   DEFAULT_WITHDRAW_LIMIT: BigNumber;
@@ -21,8 +23,10 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     super(web3);
     
     this.summoner = this.route.snapshot.paramMap.get("summoner");
-    this.FACTORY_ADDRESS = "0x95Bc65D80990B4a1Cc50F78EeF30199422dFb9BF";
-    this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(`${1000 * 1e18}`);
+    this.txSubmitted = false;
+    this.txHash = "";
+    this.FACTORY_ADDRESS = "0xD5d210045d52829391140b5dcd4FE8A387476799";
+    this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(1000 * 1e18);
     this.DEFAULT_CONSENSUS_THRESHOLD = new BigNumber(0.75 * 1e18);
   }
 
@@ -34,7 +38,11 @@ export class CreateComponent extends Web3Enabled implements OnInit {
         const factory = new this.web3.eth.Contract(abi, this.FACTORY_ADDRESS);
 
         // Call createSquad()
-        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT.toFixed(), this.DEFAULT_CONSENSUS_THRESHOLD.toFixed()), console.log, console.log, console.log);
+        this.sendTx(factory.methods.createSquad(this.summoner, this.DEFAULT_WITHDRAW_LIMIT.toFixed(), this.DEFAULT_CONSENSUS_THRESHOLD.toFixed()),
+          (txHash) => {
+            this.txSubmitted = true;
+            this.txHash = txHash;
+          }, console.log, console.log);
       },
       (e) => {
         // Wallet not connected

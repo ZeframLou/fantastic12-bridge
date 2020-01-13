@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 import Onboard from 'bnc-onboard';
+import Notify from 'bnc-notify';
 import { isNull } from 'util';
 import BigNumber from 'bignumber.js';
 
@@ -10,8 +11,8 @@ export class Web3Enabled {
   squarelinkKey: String;
   fortmaticKey: String;
   assistInstance: any;
+  notifyInstance: any;
   state: any;
-  CHECK_RECEIPT_INTERVAL: number; // in milliseconds
 
   constructor(public web3: Web3) {
     this.assistInstance = null;
@@ -20,11 +21,10 @@ export class Web3Enabled {
     this.portisAPIKey = "9debc3e3-b506-4417-9e88-f0a2de9148ca";
     this.squarelinkKey = "2b586551124b5a78f599";
     this.fortmaticKey = "pk_live_CD15F1B346962B21";
-    this.CHECK_RECEIPT_INTERVAL = 3e3;
   }
 
   async connect(onConnected, onError) {
-    if (this.assistInstance === null) {
+    if (!this.assistInstance) {
       let genericMobileWalletConfig = {
         name: "Web3 wallet",
         mobile: true,
@@ -58,7 +58,7 @@ export class Web3Enabled {
           walletName: 'fortmatic',
           apiKey: this.fortmaticKey
         },
-        { walletName: 'squarelink', apiKey: this.squarelinkKey},
+        { walletName: 'squarelink', apiKey: this.squarelinkKey },
         { walletName: 'authereum', networkId: 1 },
         {
           walletName: 'portis',
@@ -125,6 +125,13 @@ export class Web3Enabled {
       this.state = this.assistInstance.getState();
       onError();
     }
+
+    if (!this.notifyInstance) {
+      this.notifyInstance = Notify({
+        dappId: this.blocknativeAPIKey,
+        networkId: 1
+      });
+    }
   }
 
   async estimateGas(func, val, _onError) {
@@ -142,13 +149,9 @@ export class Web3Enabled {
         gas: gasLimit,
       }).on("transactionHash", (hash) => {
         _onTxHash(hash);
-        let listener = setInterval(async () => {
-          let receipt = await this.web3.eth.getTransaction(hash);
-          if (!isNull(receipt)) {
-            _onReceipt(receipt);
-            clearInterval(listener);
-          }
-        }, this.CHECK_RECEIPT_INTERVAL);
+        const { emitter } = this.notifyInstance.hash(hash);
+        emitter.on("txConfirmed", _onReceipt);
+        emitter.on("txFailed", _onError);
       }).on("error", (e) => {
         if (!e.toString().contains('newBlockHeaders')) {
           _onError(e);
@@ -166,13 +169,9 @@ export class Web3Enabled {
         value: val
       }).on("transactionHash", (hash) => {
         _onTxHash(hash);
-        let listener = setInterval(async () => {
-          let receipt = await this.web3.eth.getTransaction(hash);
-          if (!isNull(receipt)) {
-            _onReceipt(receipt);
-            clearInterval(listener);
-          }
-        }, this.CHECK_RECEIPT_INTERVAL);
+        const { emitter } = this.notifyInstance.hash(hash);
+        emitter.on("txConfirmed", _onReceipt);
+        emitter.on("txFailed", _onError);
       }).on("error", (e) => {
         if (!e.toString().contains('newBlockHeaders')) {
           _onError(e);
@@ -196,13 +195,9 @@ export class Web3Enabled {
             gas: gasLimit,
           }).on("transactionHash", (hash) => {
             _onTxHash(hash);
-            let listener = setInterval(async () => {
-              let receipt = await this.web3.eth.getTransaction(hash);
-              if (!isNull(receipt)) {
-                _onReceipt(receipt);
-                clearInterval(listener);
-              }
-            }, this.CHECK_RECEIPT_INTERVAL);
+            const { emitter } = this.notifyInstance.hash(hash);
+            emitter.on("txConfirmed", _onReceipt);
+            emitter.on("txFailed", _onError);
           }).on("error", (e) => {
             if (!e.toString().contains('newBlockHeaders')) {
               _onError(e);
@@ -217,13 +212,9 @@ export class Web3Enabled {
           gas: gasLimit,
         }).on("transactionHash", (hash) => {
           _onTxHash(hash);
-          let listener = setInterval(async () => {
-            let receipt = await this.web3.eth.getTransaction(hash);
-            if (!isNull(receipt)) {
-              _onReceipt(receipt);
-              clearInterval(listener);
-            }
-          }, this.CHECK_RECEIPT_INTERVAL);
+          const { emitter } = this.notifyInstance.hash(hash);
+          emitter.on("txConfirmed", _onReceipt);
+          emitter.on("txFailed", _onError);
         }).on("error", (e) => {
           if (!e.toString().contains('newBlockHeaders')) {
             _onError(e);
