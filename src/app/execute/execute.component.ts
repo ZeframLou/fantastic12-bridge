@@ -29,6 +29,7 @@ export class ExecuteComponent extends Web3Enabled implements OnInit {
             const squad = orderObj['params'].squad;
             let data = orderObj['params'].data;
             if (data.slice(0, 2) !== '0x') {
+              data = data.replace(/ /g, '+');
               data = await this.decompressBase64(data);
             }
 

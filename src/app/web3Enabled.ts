@@ -226,27 +226,27 @@ export class Web3Enabled {
 
   doNothing() { }
 
-  async compressHex(data) {
-    return new Promise((resolve, reject) => {
+  async compressHex(data: string) {
+    return new Promise<string>((resolve, reject) => {
       let dataBuf = Buffer.from(data.slice(2), 'hex');
       zlib.deflate(dataBuf, (err, result) => {
         if (!err) {
             resolve(result.toString('base64'));
         } else {
-            reject(err);
+            reject(JSON.stringify(err));
         }
       });
     });
   }
 
-  async decompressBase64(data) {
-    return new Promise((resolve, reject) => {
+  async decompressBase64(data: string) {
+    return new Promise<string>((resolve, reject) => {
       let dataBuf = Buffer.from(data, 'base64');
       zlib.unzip(dataBuf, (err, result) => {
         if (!err) {
             resolve('0x' + result.toString('hex'));
         } else {
-            reject(err);
+            reject(JSON.stringify(err));
         }
       });
     });

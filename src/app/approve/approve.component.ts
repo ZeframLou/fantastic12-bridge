@@ -28,6 +28,7 @@ export class ApproveComponent extends Web3Enabled implements OnInit {
             const funcSig = orderObj['params'].selector;
             let funcParams = orderObj['params'].params;
             if (funcParams.slice(0, 2) !== '0x') {
+              funcParams = funcParams.replace(/ /g, '+');
               funcParams = await this.decompressBase64(funcParams);
             }
             this.salt = orderObj['params'].salt;
@@ -41,6 +42,7 @@ export class ApproveComponent extends Web3Enabled implements OnInit {
     
             // Sign hash
             this.sig = await this.web3.eth.personal.sign(hash, this.state.address, '');
+            this.sig = await this.compressHex(this.sig);
           }
         });
       },
