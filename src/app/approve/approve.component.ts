@@ -26,7 +26,10 @@ export class ApproveComponent extends Web3Enabled implements OnInit {
           if (orderObj['params'].squad && orderObj['params'].selector && orderObj['params'].params && orderObj['params'].salt) {
             const squadAddr = orderObj['params'].squad;
             const funcSig = orderObj['params'].selector;
-            const funcParams = orderObj['params'].params;
+            let funcParams = orderObj['params'].params;
+            if (funcParams.slice(0, 2) !== '0x') {
+              funcParams = await this.decompressBase64(funcParams);
+            }
             this.salt = orderObj['params'].salt;
     
             // Initialize squad contract

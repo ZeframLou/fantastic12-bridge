@@ -27,7 +27,10 @@ export class ExecuteComponent extends Web3Enabled implements OnInit {
           const orderObj = { ...params.keys, ...params };
           if (orderObj['params'].squad && orderObj['params'].data) {
             const squad = orderObj['params'].squad;
-            const data = orderObj['params'].data;
+            let data = orderObj['params'].data;
+            if (data.slice(0, 2) !== '0x') {
+              data = await this.decompressBase64(data);
+            }
 
             this.web3.eth.sendTransaction({
               from: this.state.address,

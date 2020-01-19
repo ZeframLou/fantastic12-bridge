@@ -1,8 +1,8 @@
 import Web3 from 'web3';
 import Onboard from 'bnc-onboard';
 import Notify from 'bnc-notify';
-import { isNull } from 'util';
 import BigNumber from 'bignumber.js';
+const zlib = require('zlib');
 
 export class Web3Enabled {
   blocknativeAPIKey: String;
@@ -225,4 +225,30 @@ export class Web3Enabled {
   };
 
   doNothing() { }
+
+  async compressHex(data) {
+    return new Promise((resolve, reject) => {
+      let dataBuf = Buffer.from(data.slice(2), 'hex');
+      zlib.deflate(dataBuf, (err, result) => {
+        if (!err) {
+            resolve(result.toString('base64'));
+        } else {
+            reject(err);
+        }
+      });
+    });
+  }
+
+  async decompressBase64(data) {
+    return new Promise((resolve, reject) => {
+      let dataBuf = Buffer.from(data, 'base64');
+      zlib.unzip(dataBuf, (err, result) => {
+        if (!err) {
+            resolve('0x' + result.toString('hex'));
+        } else {
+            reject(err);
+        }
+      });
+    });
+  }
 }
