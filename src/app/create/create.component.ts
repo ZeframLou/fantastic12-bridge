@@ -27,7 +27,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     this.summoner = this.route.snapshot.paramMap.get("summoner");
     this.txSubmitted = false;
     this.txHash = "";
-    this.FACTORY_ADDRESS = "0x5339CA2b8148C5803236D8592a98411c4Ae881f8";
+    this.FACTORY_ADDRESS = "0xfa517cf8f786D4E41409af3822e70383A4DDB2C3";
 
     this.DEFAULT_SHARE_NAME = "Fantastic12 Squad Share";
     this.DEFAULT_SHARE_SYMBOL = "F12-SHARE";
