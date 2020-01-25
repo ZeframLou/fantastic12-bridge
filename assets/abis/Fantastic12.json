@@ -227,12 +227,42 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "FEE_MODEL",
+    "outputs": [
+      {
+        "internalType": "contract FeeModel",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "MAX_MEMBERS",
     "outputs": [
       {
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint8"
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "SHARE",
+    "outputs": [
+      {
+        "internalType": "contract ShareToken",
+        "name": "",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -363,6 +393,11 @@
         "type": "uint256[]"
       },
       {
+        "internalType": "uint256[]",
+        "name": "_shares",
+        "type": "uint256[]"
+      },
+      {
         "internalType": "address[]",
         "name": "_members",
         "type": "address[]"
@@ -382,27 +417,6 @@
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "approvers",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -501,9 +515,9 @@
     "name": "consensusThreshold",
     "outputs": [
       {
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint8"
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -640,13 +654,18 @@
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "_withdrawLimit",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_SHARE_ADDR",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_FEE_MODEL_ADDR",
+        "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_consensusThresholdPercentage",
+        "name": "_summonerShareAmount",
         "type": "uint256"
       }
     ],
@@ -694,27 +713,6 @@
   },
   {
     "constant": true,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "issuersOrFulfillers",
-    "outputs": [
-      {
-        "internalType": "address payable",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
     "inputs": [],
     "name": "lastWithdrawTimestamp",
     "outputs": [
@@ -734,13 +732,48 @@
     "name": "memberCount",
     "outputs": [
       {
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint8"
+        "type": "uint256"
       }
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_dests",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_signatures",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_salts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "mintShares",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -877,6 +910,15 @@
   },
   {
     "constant": false,
+    "inputs": [],
+    "name": "rageQuit",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
     "inputs": [
       {
         "internalType": "address[]",
@@ -884,7 +926,7 @@
         "type": "address[]"
       }
     ],
-    "name": "rageQuit",
+    "name": "rageQuitWithTokens",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -930,6 +972,66 @@
       }
     ],
     "name": "refundBountyReward",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_newThresholdPercentage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_signatures",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_salts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "setConsensusThreshold",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_newMaxMembers",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_signatures",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_salts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "setMaxMembers",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
