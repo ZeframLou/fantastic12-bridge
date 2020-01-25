@@ -393,6 +393,41 @@
         "type": "uint256[]"
       },
       {
+        "internalType": "address[]",
+        "name": "_members",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_signatures",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_salts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "addMembers",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_newMembers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_tributes",
+        "type": "uint256[]"
+      },
+      {
         "internalType": "uint256[]",
         "name": "_shares",
         "type": "uint256[]"
@@ -413,7 +448,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "addMembers",
+    "name": "addMembersWithShares",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
