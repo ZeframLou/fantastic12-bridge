@@ -25,7 +25,7 @@ export class CreateComponent extends Web3Enabled implements OnInit {
     this.summoner = this.route.snapshot.paramMap.get("summoner");
     this.txSubmitted = false;
     this.txHash = "";
-    this.FACTORY_ADDRESS = "0xD5d210045d52829391140b5dcd4FE8A387476799";
+    this.FACTORY_ADDRESS = "0x5339CA2b8148C5803236D8592a98411c4Ae881f8";
     this.DEFAULT_WITHDRAW_LIMIT = new BigNumber(1000 * 1e18);
     this.DEFAULT_CONSENSUS_THRESHOLD = new BigNumber(0.75 * 1e18);
   }
