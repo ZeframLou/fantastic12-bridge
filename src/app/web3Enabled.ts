@@ -14,6 +14,8 @@ export class Web3Enabled {
   notifyInstance: any;
   state: any;
 
+  DAI_ADDR: string;
+
   constructor(public web3: Web3) {
     this.assistInstance = null;
     this.blocknativeAPIKey = "259b4054-b410-4878-9b3e-e39e71e220ed";
@@ -21,6 +23,7 @@ export class Web3Enabled {
     this.portisAPIKey = "9debc3e3-b506-4417-9e88-f0a2de9148ca";
     this.squarelinkKey = "2b586551124b5a78f599";
     this.fortmaticKey = "pk_live_CD15F1B346962B21";
+    this.DAI_ADDR = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
   }
 
   async connect(onConnected, onError) {

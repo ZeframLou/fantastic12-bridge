@@ -4,6 +4,7 @@ import { CreateComponent } from './create/create.component';
 import { ApproveComponent } from './approve/approve.component';
 import { ExecuteComponent } from './execute/execute.component';
 import { TipComponent } from './tip/tip.component';
+import { ApproveTokenComponent } from './approve-token/approve-token.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'tip',
     component: TipComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'approve-token',
+    component: ApproveTokenComponent,
     pathMatch: 'full'
   },
 ];

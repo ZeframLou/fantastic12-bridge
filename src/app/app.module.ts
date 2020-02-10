@@ -8,6 +8,7 @@ import { CreateComponent } from './create/create.component';
 import { ApproveComponent } from './approve/approve.component';
 import { ExecuteComponent } from './execute/execute.component';
 import { TipComponent } from './tip/tip.component';
+import { ApproveTokenComponent } from './approve-token/approve-token.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TipComponent } from './tip/tip.component';
     CreateComponent,
     ApproveComponent,
     ExecuteComponent,
-    TipComponent
+    TipComponent,
+    ApproveTokenComponent
   ],
   imports: [
     BrowserModule,
