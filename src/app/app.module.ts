@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { CreateComponent } from './create/create.component';
 import { ApproveComponent } from './approve/approve.component';
 import { ExecuteComponent } from './execute/execute.component';
+import { TipComponent } from './tip/tip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateComponent,
     ApproveComponent,
-    ExecuteComponent
+    ExecuteComponent,
+    TipComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+<ng-container *ngIf="txSubmitted">
+    <p class="text-center">
+        Transaction successfully submitted! You may now safely close this page.
+    </p>
+    <p class="text-center">
+        Track transaction status: <a target="_blank" href="https://etherscan.io/tx/{{txHash}}">Etherscan</a>
+    </p>
+</ng-container>

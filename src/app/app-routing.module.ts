@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreateComponent } from './create/create.component';
 import { ApproveComponent } from './approve/approve.component';
 import { ExecuteComponent } from './execute/execute.component';
+import { TipComponent } from './tip/tip.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'execute',
     component: ExecuteComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'tip',
+    component: TipComponent,
     pathMatch: 'full'
   },
 ];
