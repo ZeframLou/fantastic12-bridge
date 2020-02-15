@@ -135,6 +135,9 @@ export class Web3Enabled {
         dappId: this.blocknativeAPIKey,
         networkId: 1
       });
+      this.notifyInstance.config({
+        darkMode: true
+      });
     }
   }
 
