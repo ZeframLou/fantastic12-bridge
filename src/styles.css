@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    height: 100%;
+    background-color: black;
+}
+
+p {
+    color: white;
+}
+
+input {
+    background-color: black;
+    color: white;
+}
+
+button {
+    background-color: black;
+    color: white;
+}
