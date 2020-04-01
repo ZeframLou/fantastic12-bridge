@@ -5,11 +5,11 @@ import BigNumber from 'bignumber.js';
 const zlib = require('zlib');
 
 export class Web3Enabled {
-  blocknativeAPIKey: String;
-  infuraKey: String;
-  portisAPIKey: String;
-  squarelinkKey: String;
-  fortmaticKey: String;
+  blocknativeAPIKey: string;
+  infuraKey: string;
+  portisAPIKey: string;
+  squarelinkKey: string;
+  fortmaticKey: string;
   assistInstance: any;
   notifyInstance: any;
   state: any;
@@ -38,7 +38,7 @@ export class Web3Enabled {
           var getProviderName = helpers.getProviderName, createModernProviderInterface = helpers.createModernProviderInterface, createLegacyProviderInterface = helpers.createLegacyProviderInterface;
           var provider = window['ethereum'] ||
             (this.web3 && this.web3.currentProvider);
-          return {
+          const result = {
             provider: provider,
             interface: provider
               ? typeof provider.enable === "function"
@@ -46,6 +46,9 @@ export class Web3Enabled {
                 : createLegacyProviderInterface(provider)
               : null
           };
+          return new Promise<{ provider, interface }>((resolve, reject) => {
+            resolve(result);
+          });
         }
       };
 
@@ -91,7 +94,10 @@ export class Web3Enabled {
             if (wallet.provider) {
               this.web3 = new Web3(wallet.provider);
             }
-          }
+          },
+          address: this.doNothing,
+          network: this.doNothing,
+          balance: this.doNothing
         },
         // default wallets that are included: MetaMask, Dapper, Coinbase, Trust, WalletConnect
         walletSelect: walletSelectConfig,
@@ -238,9 +244,9 @@ export class Web3Enabled {
       let dataBuf = Buffer.from(data.slice(2), 'hex');
       zlib.deflate(dataBuf, (err, result) => {
         if (!err) {
-            resolve(result.toString('base64'));
+          resolve(result.toString('base64'));
         } else {
-            reject(JSON.stringify(err));
+          reject(JSON.stringify(err));
         }
       });
     });
@@ -251,9 +257,9 @@ export class Web3Enabled {
       let dataBuf = Buffer.from(data, 'base64');
       zlib.unzip(dataBuf, (err, result) => {
         if (!err) {
-            resolve('0x' + result.toString('hex'));
+          resolve('0x' + result.toString('hex'));
         } else {
-            reject(JSON.stringify(err));
+          reject(JSON.stringify(err));
         }
       });
     });
