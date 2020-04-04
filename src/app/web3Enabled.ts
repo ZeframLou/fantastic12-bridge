@@ -55,6 +55,7 @@ export class Web3Enabled {
       const wallets = [
         {
           walletName: 'fortmatic',
+          label: 'Login with email / phone',
           preferred: true,
           apiKey: this.fortmaticKey
         },
